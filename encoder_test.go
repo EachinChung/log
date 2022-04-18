@@ -9,41 +9,41 @@ import (
 
 type enc struct{}
 
-func (e enc) AppendBool(b bool) {}
+func (enc) AppendBool(bool) {}
 
-func (e enc) AppendByteString(bytes []byte) {}
+func (enc) AppendByteString([]byte) {}
 
-func (e enc) AppendComplex128(c complex128) {}
+func (enc) AppendComplex128(complex128) {}
 
-func (e enc) AppendComplex64(c complex64) {}
+func (enc) AppendComplex64(complex64) {}
 
-func (e enc) AppendFloat64(f float64) {}
+func (enc) AppendFloat64(float64) {}
 
-func (e enc) AppendFloat32(f float32) {}
+func (enc) AppendFloat32(float32) {}
 
-func (e enc) AppendInt(i int) {}
+func (enc) AppendInt(int) {}
 
-func (e enc) AppendInt64(i int64) {}
+func (enc) AppendInt64(int64) {}
 
-func (e enc) AppendInt32(i int32) {}
+func (enc) AppendInt32(int32) {}
 
-func (e enc) AppendInt16(i int16) {}
+func (enc) AppendInt16(int16) {}
 
-func (e enc) AppendInt8(i int8) {}
+func (enc) AppendInt8(int8) {}
 
-func (e enc) AppendString(s string) {}
+func (enc) AppendString(string) {}
 
-func (e enc) AppendUint(u uint) {}
+func (enc) AppendUint(uint) {}
 
-func (e enc) AppendUint64(u uint64) {}
+func (enc) AppendUint64(uint64) {}
 
-func (e enc) AppendUint32(u uint32) {}
+func (enc) AppendUint32(uint32) {}
 
-func (e enc) AppendUint16(u uint16) {}
+func (enc) AppendUint16(uint16) {}
 
-func (e enc) AppendUint8(u uint8) {}
+func (enc) AppendUint8(uint8) {}
 
-func (e enc) AppendUintptr(u uintptr) {}
+func (enc) AppendUintptr(uintptr) {}
 
 var _ zapcore.PrimitiveArrayEncoder = enc{}
 

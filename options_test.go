@@ -1,7 +1,6 @@
 package log
 
 import (
-	"fmt"
 	"testing"
 
 	"github.com/spf13/pflag"
@@ -158,7 +157,7 @@ func TestOptions_Build(t *testing.T) {
 				Development:       tt.fields.Development,
 				Name:              tt.fields.Name,
 			}
-			tt.wantErr(t, o.Build(), fmt.Sprintf("Build()"))
+			tt.wantErr(t, o.Build())
 		})
 	}
 }

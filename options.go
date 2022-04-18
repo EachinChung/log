@@ -98,7 +98,6 @@ func (o *Options) AddFlags(fs *pflag.FlagSet) {
 // String 将 Options 的值以 JSON 格式字符串返回。
 func (o *Options) String() string {
 	data, _ := json.Marshal(o)
-
 	return string(data)
 }
 
@@ -153,6 +152,5 @@ func (o *Options) Build() error {
 	}
 	zap.RedirectStdLog(logger.Named(o.Name))
 	zap.ReplaceGlobals(logger)
-
 	return nil
 }

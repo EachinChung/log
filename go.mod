@@ -1,6 +1,6 @@
 module github.com/eachinchung/log
 
-go 1.17
+go 1.18
 
 require (
 	github.com/eachinchung/errors v1.5.0

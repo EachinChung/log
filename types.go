@@ -5,6 +5,14 @@ import (
 	"go.uber.org/zap/zapcore"
 )
 
+// 定义常见的日志字段。
+const (
+	KeyRequestID = "requestID"
+
+	KeyUserID   = "userID"
+	KeyUsername = "username"
+)
+
 // Field 字段类型
 type Field = zapcore.Field
 

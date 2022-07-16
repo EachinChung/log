@@ -1,6 +1,7 @@
 package log
 
 import (
+	"fmt"
 	"testing"
 
 	"github.com/spf13/pflag"
@@ -215,74 +216,6 @@ func TestOptions_String(t *testing.T) {
 	}
 }
 
-func TestOptions_Validate(t *testing.T) {
-	type fields struct {
-		OutputPaths       []string
-		ErrorOutputPaths  []string
-		Level             string
-		Format            string
-		DisableCaller     bool
-		DisableStacktrace bool
-		EnableColor       bool
-		EncodeFullCaller  bool
-		Development       bool
-		Name              string
-	}
-	tests := []struct {
-		name   string
-		fields fields
-		want   string
-	}{
-		{
-			name: "invalid level",
-			fields: fields{
-				OutputPaths:       []string{"stdout"},
-				ErrorOutputPaths:  []string{"stderr"},
-				Level:             "invalid",
-				Format:            "console",
-				DisableCaller:     false,
-				DisableStacktrace: false,
-				EnableColor:       true,
-				EncodeFullCaller:  false,
-				Development:       false,
-			},
-			want: "unrecognized level: \"invalid\"",
-		},
-		{
-			name: "invalid format",
-			fields: fields{
-				OutputPaths:       []string{"stdout"},
-				ErrorOutputPaths:  []string{"stderr"},
-				Level:             "info",
-				Format:            "invalid",
-				DisableCaller:     false,
-				DisableStacktrace: false,
-				EnableColor:       true,
-				EncodeFullCaller:  false,
-				Development:       false,
-			},
-			want: "not a valid log format: \"invalid\"",
-		},
-	}
-	for _, tt := range tests {
-		t.Run(tt.name, func(t *testing.T) {
-			o := &Options{
-				OutputPaths:       tt.fields.OutputPaths,
-				ErrorOutputPaths:  tt.fields.ErrorOutputPaths,
-				Level:             tt.fields.Level,
-				Format:            tt.fields.Format,
-				DisableCaller:     tt.fields.DisableCaller,
-				DisableStacktrace: tt.fields.DisableStacktrace,
-				EnableColor:       tt.fields.EnableColor,
-				EncodeFullCaller:  tt.fields.EncodeFullCaller,
-				Development:       tt.fields.Development,
-				Name:              tt.fields.Name,
-			}
-			assert.Equalf(t, tt.want, o.Validate().Error(), "Validate()")
-		})
-	}
-}
-
 func TestOptions_Validate_nil(t *testing.T) {
 	type fields struct {
 		OutputPaths       []string
@@ -299,7 +232,7 @@ func TestOptions_Validate_nil(t *testing.T) {
 	tests := []struct {
 		name   string
 		fields fields
-		want   error
+		want   []error
 	}{
 		{
 			name: "default",
@@ -331,7 +264,60 @@ func TestOptions_Validate_nil(t *testing.T) {
 				Development:       tt.fields.Development,
 				Name:              tt.fields.Name,
 			}
-			assert.Equalf(t, tt.want, o.Validate(), "Validate()")
+			assert.EqualValuesf(t, tt.want, o.Validate(), "Validate()")
+		})
+	}
+}
+
+func TestOptions_Validate(t *testing.T) {
+	type fields struct {
+		OutputPaths       []string
+		ErrorOutputPaths  []string
+		Level             string
+		Format            string
+		DisableCaller     bool
+		DisableStacktrace bool
+		EnableColor       bool
+		EncodeFullCaller  bool
+		Development       bool
+		Name              string
+	}
+	tests := []struct {
+		name   string
+		fields fields
+		want   []error
+	}{
+		{
+			name: "error",
+			fields: fields{
+				OutputPaths:       []string{"stdout"},
+				ErrorOutputPaths:  []string{"stderr"},
+				Level:             "info",
+				Format:            "invalid",
+				DisableCaller:     false,
+				DisableStacktrace: false,
+				EnableColor:       true,
+				EncodeFullCaller:  false,
+				Development:       false,
+			},
+			want: []error{fmt.Errorf("not a valid log format: \"invalid\"")},
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			o := &Options{
+				OutputPaths:       tt.fields.OutputPaths,
+				ErrorOutputPaths:  tt.fields.ErrorOutputPaths,
+				Level:             tt.fields.Level,
+				Format:            tt.fields.Format,
+				DisableCaller:     tt.fields.DisableCaller,
+				DisableStacktrace: tt.fields.DisableStacktrace,
+				EnableColor:       tt.fields.EnableColor,
+				EncodeFullCaller:  tt.fields.EncodeFullCaller,
+				Development:       tt.fields.Development,
+				Name:              tt.fields.Name,
+			}
+			assert.EqualValuesf(t, tt.want, o.Validate(), "Validate()")
 		})
 	}
 }

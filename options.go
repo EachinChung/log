@@ -5,7 +5,6 @@ import (
 	"fmt"
 	"strings"
 
-	"github.com/eachinchung/errors"
 	"github.com/spf13/pflag"
 	"go.uber.org/zap"
 	"go.uber.org/zap/zapcore"
@@ -57,7 +56,7 @@ func NewOptions() *Options {
 }
 
 // Validate 验证选项字段。
-func (o *Options) Validate() error {
+func (o *Options) Validate() []error {
 	var errs []error
 
 	var zapLevel zapcore.Level
@@ -70,7 +69,7 @@ func (o *Options) Validate() error {
 		errs = append(errs, fmt.Errorf("not a valid log format: %q", o.Format))
 	}
 
-	return errors.NewAggregate(errs...)
+	return errs
 }
 
 // AddFlags 将 Options 的各个字段追加到传入的 pflag.FlagSet 变量中。

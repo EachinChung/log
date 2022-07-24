@@ -511,11 +511,11 @@ func (l *zapLogger) L(ctx context.Context) *zapLogger {
 	lg := l.clone()
 
 	if requestID := ctx.Value(KeyRequestID); requestID != nil {
-		lg.zapLogger = lg.zapLogger.With(zap.Any(KeyRequestID, requestID))
+		lg.zapLogger = lg.zapLogger.With(zap.Any("request-id", requestID))
 	}
 
 	if eID := ctx.Value(KeyEID); eID != nil {
-		lg.zapLogger = lg.zapLogger.With(zap.Any(KeyEID, eID))
+		lg.zapLogger = lg.zapLogger.With(zap.Any("e-id", eID))
 	}
 
 	return lg

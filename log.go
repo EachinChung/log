@@ -515,7 +515,7 @@ func (l *zapLogger) L(ctx context.Context) *zapLogger {
 	}
 
 	if eID := ctx.Value(KeyEID); eID != nil {
-		lg.zapLogger = lg.zapLogger.With(zap.Any("e-id", eID))
+		lg.zapLogger = lg.zapLogger.With(zap.Any("eid", eID))
 	}
 
 	return lg

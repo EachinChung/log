@@ -7,10 +7,8 @@ import (
 
 // 定义常见的日志字段。
 const (
-	KeyRequestID = "requestID"
-
-	KeyUserID   = "userID"
-	KeyUsername = "username"
+	KeyRequestID = "REQUEST_ID"
+	KeyEID       = "E_ID"
 )
 
 // Field 字段类型

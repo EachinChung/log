@@ -514,11 +514,8 @@ func (l *zapLogger) L(ctx context.Context) *zapLogger {
 		lg.zapLogger = lg.zapLogger.With(zap.Any(KeyRequestID, requestID))
 	}
 
-	if userID := ctx.Value(KeyUserID); userID != nil {
-		lg.zapLogger = lg.zapLogger.With(zap.Any(KeyUserID, userID))
-	}
-	if username := ctx.Value(KeyUsername); username != nil {
-		lg.zapLogger = lg.zapLogger.With(zap.Any(KeyUsername, username))
+	if eID := ctx.Value(KeyEID); eID != nil {
+		lg.zapLogger = lg.zapLogger.With(zap.Any(KeyEID, eID))
 	}
 
 	return lg
